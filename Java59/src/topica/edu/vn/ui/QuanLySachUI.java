@@ -3,6 +3,11 @@ package topica.edu.vn.ui;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Container;
+import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
+
 import javax.swing.JPanel;
 import javax.swing.JTable;
 import javax.swing.JTextField;
@@ -16,6 +21,9 @@ import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import topica.edu.vn.connect.NhaXuatBanService;
+import topica.edu.vn.model.NhaXuatBan;
+import java.util.Vector;
 
 public class QuanLySachUI extends JFrame {
 	JTextField txtManxb, txtTennxb, txtDiachi, txtDienthoai;
@@ -23,6 +31,8 @@ public class QuanLySachUI extends JFrame {
 	JLabel lblStep;
 	JButton btnThem, btnLuu, btnSua, btnXoa;
 	JButton btnTimkiem;
+	
+	ArrayList<NhaXuatBan> dsNXB = null;
 	DefaultTableModel dtmNxb;
 	JTable tblNxb;
 	public QuanLySachUI(String title)
@@ -30,10 +40,37 @@ public class QuanLySachUI extends JFrame {
 		super(title);
 		addControls();
 		addEvents();
+		hienThiToanBoNhaXuatBan();
+	}
+
+	private void hienThiToanBoNhaXuatBan() {
+		NhaXuatBanService nxbService = new NhaXuatBanService();
+		dsNXB = nxbService.layToanBoNhaXuatBan();
+		dtmNxb.setRowCount(0);
+		for(NhaXuatBan nxb: dsNXB)
+		{
+			Vector<Object> vec = new Vector<Object>();
+			vec.add(nxb.getMaNhaXuatBan());
+			vec.add(nxb.getTenNhaXuatBan());
+			vec.add(nxb.getDiaChi());
+			vec.add(nxb.getDienThoai());
+			dtmNxb.addRow(vec);
+		}
+		
 	}
 
 	private void addEvents() {
-		// TODO Auto-generated method stub
+		btnTimkiem.addActionListener(new ActionListener()
+				{
+
+					@Override
+					public void actionPerformed(ActionEvent e) {
+						TimKiemUI ui = new TimKiemUI("Tìm kiếm Sách");
+						ui.showWindow();
+						
+					}
+			
+				});
 		
 	}
 
@@ -56,34 +93,37 @@ public class QuanLySachUI extends JFrame {
 		
 		pnChiTiet.setLayout(new BoxLayout(pnChiTiet,BoxLayout.Y_AXIS));
 		JPanel pnNxb = new JPanel();
-		JLabel lblNxb = new JLabel("Thông tin nhà xuất bản");
+		JLabel lblNxb = new JLabel("THÔNG TIN NHÀ XUẤT BẢN");
+		lblNxb.setForeground(Color.RED);
+		Font ft = new Font("arial", Font.BOLD,20);
+		lblNxb.setFont(ft);
 		pnNxb.add(lblNxb);
 		pnChiTiet.add(pnNxb);
 		
 		JPanel pnManxb = new JPanel();
 		JLabel lblManxb = new JLabel("Mã NXB: ");
-		txtManxb = new JTextField(20);
+		txtManxb = new JTextField(25);
 		pnManxb.add(lblManxb);
 		pnManxb.add(txtManxb);
 		pnChiTiet.add(pnManxb);
 		
 		JPanel pnTennxb= new JPanel();
 		JLabel lblTennxb = new JLabel("Tên NXB: ");
-		txtTennxb = new JTextField(20);
+		txtTennxb = new JTextField(25);
 		pnTennxb.add(lblTennxb);
 		pnTennxb.add(txtTennxb);
 		pnChiTiet.add(pnTennxb);
 		
 		JPanel pnDiachi= new JPanel();
 		JLabel lblDiachi = new JLabel("Địa chỉ: ");
-		txtDiachi = new JTextField(20);
+		txtDiachi = new JTextField(25);
 		pnDiachi.add(lblDiachi);
 		pnDiachi.add(txtDiachi);
 		pnChiTiet.add(pnDiachi);
 		
 		JPanel pnDienthoai= new JPanel();
 		JLabel lblDienthoai = new JLabel("Điện thoại: ");
-		txtDienthoai = new JTextField(20);
+		txtDienthoai = new JTextField(25);
 		pnDienthoai.add(lblDienthoai);
 		pnDienthoai.add(txtDienthoai);
 		pnChiTiet.add(pnDienthoai);
@@ -141,6 +181,12 @@ public class QuanLySachUI extends JFrame {
 	
 		TitledBorder borderThucHien = new TitledBorder(BorderFactory.createLineBorder(Color.BLUE),
 				"Thực hiện");
+		
+		TitledBorder borderDanhSachNxb = new TitledBorder(BorderFactory.createLineBorder(Color.PINK),
+				"Danh sách nhà xuất bản");
+		pnCenter.setBorder(borderDanhSachNxb);
+		
+		pnChiTiet.setBorder(borderThongTinChiTiet);
 		pnThucHien.setBorder(borderThucHien);
 		lblManxb.setPreferredSize(lblDienthoai.getPreferredSize());
 		lblTennxb.setPreferredSize(lblDienthoai.getPreferredSize());
@@ -156,7 +202,7 @@ public class QuanLySachUI extends JFrame {
 	}
 	public void showWindow()
 	{
-		this.setSize(400,500);
+		this.setSize(500,600);
 		this.setLocationRelativeTo(null);
 		this.setVisible(true);
 	}
