@@ -55,5 +55,48 @@ public class NhaXuatBanService extends MySqlService {
 		}
 		return false;
 	}
+	public boolean xoaNhaXuatBan(String maNhaXuatBan)
+	{
+		
+		
+		try
+		{
+			String sql ="Delete from nhaxuatban where manhaxuatban = ?";
+			PreparedStatement preStatement = conn.prepareStatement(sql);
+			preStatement.setString(1,maNhaXuatBan);
+			int rowsInserted = preStatement.executeUpdate();
+			 if (rowsInserted > 0) {
+		            return true;
+		        }
+		}
+		catch(Exception ex)
+		{
+			ex.printStackTrace();
+		}
+		return false;
+	}
 
+	public boolean suaNhaXuatBan(String maNhaXuatBan, String tenNhaXuatBan,String diaChi,String dienThoai)
+	{
+		
+		
+		try
+		{
+			String sql ="Update nhaxuatban set tennhaxuatban = ? , diachi =? , sophone = ? where manhaxuatban = ?";
+			PreparedStatement preStatement = conn.prepareStatement(sql);
+			preStatement.setString(4,maNhaXuatBan);
+			preStatement.setString (1,tenNhaXuatBan);
+			preStatement.setString (2,diaChi);
+			preStatement.setString (3,dienThoai);
+			int rowsInserted = preStatement.executeUpdate();
+			 if (rowsInserted > 0) {
+		            return true;
+		        }
+		}
+		catch(Exception ex)
+		{
+			ex.printStackTrace();
+		}
+		return false;
+	}
 }

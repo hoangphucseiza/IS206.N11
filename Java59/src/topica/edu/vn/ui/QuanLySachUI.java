@@ -6,6 +6,8 @@ import java.awt.Container;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 
 import javax.swing.JPanel;
@@ -37,6 +39,7 @@ public class QuanLySachUI extends JFrame {
 	ArrayList<NhaXuatBan> dsNXB = null;
 	DefaultTableModel dtmNxb;
 	JTable tblNxb;
+	private int currentRow = -1;
 	public QuanLySachUI(String title)
 	{
 		super(title);
@@ -60,7 +63,12 @@ public class QuanLySachUI extends JFrame {
 		}
 		
 	}
-
+	public void clearTextFields() {
+	    txtManxb.setText("");
+	    txtTennxb.setText("");
+	    txtDiachi.setText("");
+	    txtDienthoai.setText("");
+	}
 	private void addEvents() {
 		btnTimkiem.addActionListener(new ActionListener()
 				{
@@ -85,14 +93,80 @@ public class QuanLySachUI extends JFrame {
 				{
 					JOptionPane.showMessageDialog(null, "Thêm nhà xuất bản thành công");
 					hienThiToanBoNhaXuatBan();
+					clearTextFields();
 				}else
 				{
 					JOptionPane.showMessageDialog(null, "Thêm nhà xuất bản thất bại");
 				}
 			}
-			
-	
 		});
+		
+		btnXoa.addActionListener(new ActionListener()
+		{
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				NhaXuatBanService nxbservice = new NhaXuatBanService();
+			boolean flat =	nxbservice.xoaNhaXuatBan(txtManxb.getText());
+				if (flat)
+				{
+					JOptionPane.showMessageDialog(null, "Xóa nhà xuất bản thành công");
+					hienThiToanBoNhaXuatBan();
+					clearTextFields();
+				}else
+				{
+					JOptionPane.showMessageDialog(null, "Xóa nhà xuất bản thất bại");
+				}
+			}
+		});
+		
+		btnVeSau.addActionListener(new ActionListener() {
+		    @Override
+		    public void actionPerformed(ActionEvent e) {
+		        if (currentRow != -1) {
+		            int nextRow = Math.min(currentRow + 1, tblNxb.getRowCount() - 1);
+		            tblNxb.setRowSelectionInterval(nextRow, nextRow);
+		            tblNxb.scrollRectToVisible(tblNxb.getCellRect(nextRow, 0, true));
+		        }
+		    }
+		});
+		
+		btnSua.addActionListener(new ActionListener()
+		{
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				NhaXuatBanService nxbservice = new NhaXuatBanService();
+			boolean flat =	nxbservice.suaNhaXuatBan(txtManxb.getText(),txtTennxb.getText(), txtDiachi.getText(), txtDienthoai.getText());
+				if (flat)
+				{
+					JOptionPane.showMessageDialog(null, "Sửa nhà xuất bản thành công");
+					hienThiToanBoNhaXuatBan();
+					clearTextFields();
+				}else
+				{
+					JOptionPane.showMessageDialog(null, "Sửa nhà xuất bản thất bại");
+				}
+			}
+		});
+		
+		tblNxb.addMouseListener(new MouseAdapter()
+			{
+			@Override
+			public void mouseClicked(MouseEvent e)
+			{
+				currentRow = tblNxb.getSelectedRow();
+				int row = tblNxb.getSelectedRow();
+				String maNxb = tblNxb.getValueAt(row,0).toString();
+				String tenNxb = tblNxb.getValueAt(row,1).toString();
+				String diaChi = tblNxb.getValueAt(row,2).toString();
+				String dienThoai = tblNxb.getValueAt(row,3).toString();
+				txtManxb.setText(maNxb);
+				txtTennxb.setText(tenNxb);
+				txtDiachi.setText(diaChi);
+				txtDienthoai.setText(dienThoai);
+			}
+			});
 		
 	}
 
@@ -193,7 +267,7 @@ public class QuanLySachUI extends JFrame {
 		pnCenter.add(scTable,BorderLayout.CENTER);
 		
 		JPanel pnButtonOfSouth = new JPanel();
-		btnTimkiem = new JButton("Tìm kiếm");
+		btnTimkiem = new JButton("Tìm kiếmn thông tin sách");
 		pnButtonOfSouth.add(btnTimkiem);
 		pnSouth.add(pnButtonOfSouth);
 		
