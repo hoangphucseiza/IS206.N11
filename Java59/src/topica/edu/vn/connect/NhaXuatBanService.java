@@ -32,5 +32,28 @@ public class NhaXuatBanService extends MySqlService {
 		}
 		return dsNxb;
 	}
+	public boolean themNhaXuatBan(String maNhaXuatBan, String tenNhaXuatBan,String diaChi,String dienThoai)
+	{
+		
+		
+		try
+		{
+			String sql ="Insert into nhaxuatban(Manhaxuatban,Tennhaxuatban,diachi,soPhone) values (?,?,?,?)";
+			PreparedStatement preStatement = conn.prepareStatement(sql);
+			preStatement.setString(1,maNhaXuatBan);
+			preStatement.setString (2,tenNhaXuatBan);
+			preStatement.setString (3,diaChi);
+			preStatement.setString (4,dienThoai);
+			int rowsInserted = preStatement.executeUpdate();
+			 if (rowsInserted > 0) {
+		            return true;
+		        }
+		}
+		catch(Exception ex)
+		{
+			ex.printStackTrace();
+		}
+		return false;
+	}
 
 }

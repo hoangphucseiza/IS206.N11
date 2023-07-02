@@ -4,6 +4,7 @@ public class NhaXuatBan {
 	private String maNhaXuatBan;
 	private String tenNhaXuatBan;
 	private String diaChi;
+	private String dienThoai;
 	public String getMaNhaXuatBan() {
 		return maNhaXuatBan;
 	}
@@ -28,5 +29,5 @@ public class NhaXuatBan {
 	public void setDienThoai(String dienThoai) {
 		this.dienThoai = dienThoai;
 	}
-	private String dienThoai;
+	
 }

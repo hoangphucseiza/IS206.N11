@@ -13,6 +13,8 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.BorderLayout;
 import javax.swing.JScrollPane;  
 import javax.swing.border.TitledBorder;
@@ -43,7 +45,7 @@ public class QuanLySachUI extends JFrame {
 		hienThiToanBoNhaXuatBan();
 	}
 
-	private void hienThiToanBoNhaXuatBan() {
+	public void hienThiToanBoNhaXuatBan() {
 		NhaXuatBanService nxbService = new NhaXuatBanService();
 		dsNXB = nxbService.layToanBoNhaXuatBan();
 		dtmNxb.setRowCount(0);
@@ -71,6 +73,26 @@ public class QuanLySachUI extends JFrame {
 					}
 			
 				});
+		
+		btnThem.addActionListener(new ActionListener()
+		{
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				NhaXuatBanService nxbservice = new NhaXuatBanService();
+			boolean flat =	nxbservice.themNhaXuatBan(txtManxb.getText(),txtTennxb.getText(), txtDiachi.getText(), txtDienthoai.getText());
+				if (flat)
+				{
+					JOptionPane.showMessageDialog(null, "Thêm nhà xuất bản thành công");
+					hienThiToanBoNhaXuatBan();
+				}else
+				{
+					JOptionPane.showMessageDialog(null, "Thêm nhà xuất bản thất bại");
+				}
+			}
+			
+	
+		});
 		
 	}
 
