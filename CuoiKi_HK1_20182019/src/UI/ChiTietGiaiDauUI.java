@@ -61,20 +61,35 @@ public class ChiTietGiaiDauUI extends JFrame {
 	}
 	private void addEvents() {
 		
+		btnHuy.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				dtmDoithamgia.setRowCount(0);
+				
+			}
+			
+		});
+		
 		btnThem.addActionListener(new ActionListener()
 		{
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				ChiTietGiaiDauService CTGD = new ChiTietGiaiDauService();
+				
 				String tengiai = cbxTengiai.getSelectedItem().toString();
 				GiaiDauService gdser = new GiaiDauService();
 				int magiai = gdser.layMagiaidaututengiai(tengiai);
-				int row = tblDanhsachdoi.getSelectedRow();
 				
+				int rowCount = dtmDoithamgia.getRowCount();
+				for(int i=0; i< rowCount;i++)
+				{
+					ChiTietGiaiDauService CTGD = new ChiTietGiaiDauService();
+					int madoi = Integer.parseInt(dtmDoithamgia.getValueAt(1,0).toString());;
+					CTGD.themCT_GD(magiai, madoi);
+				}
 				
-			//	int madoi = tblDanhsachdoi.getValueAt(row,1).toString();
-				CTGD.themCT_GD(ALLBITS, ABORT);
+				dtmDoithamgia.setRowCount(0);
 			}
 	
 		});
@@ -90,9 +105,7 @@ public class ChiTietGiaiDauUI extends JFrame {
 						Vector<Object> vec = new Vector<Object>();
 						vec.add(madoi);
 						vec.add(tendoi);
-						dtmDoithamgia.addRow(vec);
-						
-							
+						dtmDoithamgia.addRow(vec);	
 					}
 			
 			

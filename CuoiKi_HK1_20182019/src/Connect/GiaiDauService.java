@@ -50,7 +50,7 @@ public class GiaiDauService extends MySqlService {
 		return dsGD;
 	}
 	
-	public int layMagiaidaututengiai( String tengiai)
+	public int layMagiaidaututengiai(String tengiai)
 	{
 		int kq =0;
 		try
@@ -59,7 +59,8 @@ public class GiaiDauService extends MySqlService {
 			PreparedStatement pre = conn.prepareStatement(sql);
 			pre.setString(1,tengiai);
 			ResultSet result = pre.executeQuery();
-			 kq = result.getInt(1);
+			
+			kq = result.getInt("mag");
 		}
 		catch(Exception ex)
 		{
