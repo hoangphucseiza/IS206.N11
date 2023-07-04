@@ -28,6 +28,7 @@ import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import java.util.Vector;
 
+import Connect.ChiTietGiaiDauService;
 import Connect.DoiBongService;
 import Connect.GiaiDauService;
 import Model.DoiBongModel;
@@ -65,8 +66,15 @@ public class ChiTietGiaiDauUI extends JFrame {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				ChiTietGiaiDauService CTGD = new ChiTietGiaiDauService();
+				String tengiai = cbxTengiai.getSelectedItem().toString();
+				GiaiDauService gdser = new GiaiDauService();
+				int magiai = gdser.layMagiaidaututengiai(tengiai);
+				int row = tblDanhsachdoi.getSelectedRow();
 				
 				
+			//	int madoi = tblDanhsachdoi.getValueAt(row,1).toString();
+				CTGD.themCT_GD(ALLBITS, ABORT);
 			}
 	
 		});

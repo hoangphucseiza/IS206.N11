@@ -49,4 +49,23 @@ public class GiaiDauService extends MySqlService {
 		}
 		return dsGD;
 	}
+	
+	public int layMagiaidaututengiai( String tengiai)
+	{
+		int kq =0;
+		try
+		{
+			String sql = "Select mag from giaidau where tengiai = ? ";
+			PreparedStatement pre = conn.prepareStatement(sql);
+			pre.setString(1,tengiai);
+			ResultSet result = pre.executeQuery();
+			 kq = result.getInt(1);
+		}
+		catch(Exception ex)
+		{
+			ex.printStackTrace();
+		}
+		return kq ;
+
+	}
 }
