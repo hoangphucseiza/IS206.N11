@@ -1,6 +1,4 @@
 package UI;
-
-
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Container;
@@ -9,6 +7,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.sql.Date;
 import java.util.ArrayList;
 import javax.swing.JPanel;
 import javax.swing.JTable;
@@ -25,11 +24,12 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import java.util.Vector;
-import Connect.DoiBongService;
-public class ThemDoiUI extends JFrame {
-	JTextField txtMadoi, txtTendoi, txtQuocgia;
+import Connect.GiaiDauService;
+
+public class ThemGiaiDauUI extends JFrame {
+	JTextField txtMagiai, txtTengiai, txtNgaybatdau, txtNgayketthuc;
 	JButton btnThem;
-	public ThemDoiUI(String title)
+	public ThemGiaiDauUI(String title)
 	{
 		super(title);
 		addControls();
@@ -41,17 +41,9 @@ public class ThemDoiUI extends JFrame {
 
 					@Override
 					public void actionPerformed(ActionEvent e) {
-						DoiBongService DB = new DoiBongService();
-						if(DB.themDoiBong(Integer.parseInt(txtMadoi.getText()), txtTendoi.getText(), txtQuocgia.getText()))
-						{
-							JOptionPane.showMessageDialog(null,"Thêm đội bóng thành công");
-						}else
-						{
-							JOptionPane.showMessageDialog(null,"Thêm đội bóng không thành công");
-						}
-						
+						GiaiDauService GD = new GiaiDauService();
+						GD.themGiaidau(Integer.parseInt(txtMagiai.getText()), txtTengiai.getText(), Date.valueOf(txtNgaybatdau.getText()),Date.valueOf(txtNgayketthuc.getText()));
 					}
-			
 				});
 		
 	}
@@ -67,28 +59,35 @@ public class ThemDoiUI extends JFrame {
 		pnCenter.setLayout(new BoxLayout(pnCenter,BoxLayout.Y_AXIS));
 		
 		
-		JPanel pnMadoi = new JPanel();
-		JLabel lblMadoi = new JLabel("Mã đội");
-		txtMadoi = new JTextField(25);
-		pnMadoi.add(lblMadoi);
-		pnMadoi.add(txtMadoi);
-		pnCenter.add(pnMadoi);
+		JPanel pnMagiai = new JPanel();
+		JLabel lblMagiai = new JLabel("Mã giải");
+		txtMagiai = new JTextField(25);
+		pnMagiai.add(lblMagiai);
+		pnMagiai.add(txtMagiai);
+		pnCenter.add(pnMagiai);
 		
-		JPanel pnTendoi = new JPanel();
-		JLabel lblTendoi = new JLabel("Tên đội");
-		txtTendoi = new JTextField(25);
-		pnTendoi.add(lblTendoi);
-		pnTendoi.add(txtTendoi);
-		pnCenter.add(pnTendoi);
+		JPanel pnTengiai = new JPanel();
+		JLabel lblTengiai = new JLabel("Tên giải");
+		txtTengiai = new JTextField(25);
+		pnTengiai.add(lblTengiai);
+		pnTengiai.add(txtTengiai);
+		pnCenter.add(pnTengiai);
 		
 		
-		JPanel pnQuocgia = new JPanel();
-		JLabel lblQuocgia = new JLabel("Quốc gia");
-		txtQuocgia = new JTextField(25);
-		pnQuocgia.add(lblQuocgia);
-		pnQuocgia.add(txtQuocgia);
-		pnCenter.add(pnQuocgia);
+		JPanel pnNgaybatdau = new JPanel();
+		JLabel lblNgaybatdau = new JLabel("Ngày bắt đầu");
+		txtNgaybatdau = new JTextField(25);
+		pnNgaybatdau.add(lblNgaybatdau);
+		pnNgaybatdau.add(txtNgaybatdau);
+		pnCenter.add(pnNgaybatdau);
 	
+		
+		JPanel pnNgayketthuc = new JPanel();
+		JLabel lblNgayketthuc = new JLabel("Ngày kết thúc");
+		txtNgayketthuc = new JTextField(25);
+		pnNgayketthuc.add(lblNgayketthuc);
+		pnNgayketthuc.add(txtNgayketthuc);
+		pnCenter.add(pnNgayketthuc);
 		
 		btnThem = new JButton("Thêm");
 		pnSouth.add(btnThem);
