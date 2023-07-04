@@ -2,6 +2,10 @@ package Connect;
 
 import java.sql.Date;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.util.ArrayList;
+
+import Model.GiaiDauModel;
 
 public class GiaiDauService extends MySqlService {
 	public void themGiaidau( int magiai,String tengiai,Date ngaybatdau,Date ngayketthuc)
@@ -21,5 +25,28 @@ public class GiaiDauService extends MySqlService {
 			ex.printStackTrace();
 		}
 
+	}
+	public ArrayList<GiaiDauModel> layToanbotengiai()
+	{
+		ArrayList<GiaiDauModel> dsGD = new ArrayList<>();
+		
+		
+		try
+		{
+			String sql = "Select tengiai from giaidau ";
+			PreparedStatement pre = conn.prepareStatement(sql);
+			ResultSet result = pre.executeQuery();
+			while(result.next())
+			{
+				GiaiDauModel GD = new GiaiDauModel();
+				GD.setTengiai(result.getString(1));
+				dsGD.add(GD);
+			}
+		}
+		catch(Exception ex)
+		{
+			ex.printStackTrace();
+		}
+		return dsGD;
 	}
 }

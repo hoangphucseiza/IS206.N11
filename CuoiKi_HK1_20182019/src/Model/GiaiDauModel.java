@@ -31,6 +31,10 @@ public class GiaiDauModel {
 	public void setNgayketthuc(Date ngayketthuc) {
 		this.ngayketthuc = ngayketthuc;
 	}
+	@Override
+	public String toString() {
+		return tengiai;
+	}
 	
 	
 }
