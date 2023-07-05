@@ -13,7 +13,12 @@ import javax.swing.JPanel;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
+
+import connect.BacSiService;
 import connect.BenhNhanService;
+import connect.KhamBenhService;
+import model.BacSiModel;
+
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import java.awt.BorderLayout;
@@ -30,8 +35,9 @@ import java.util.Vector;
 
 public class DatLichKhamUI extends JFrame {
 	JTextField txtMabenhnhan, txtTenbenhnhan, txtNgaykham, txtYeucaukham;
-	JComboBox cbxTenbacsi;
+	JComboBox<String> cbxTenbacsi;
 	JButton btnDatlichkham;
+	ArrayList<BacSiModel> dsTenbacsi;
 	public DatLichKhamUI(String title)
 	{
 		super(title);
@@ -44,10 +50,26 @@ public class DatLichKhamUI extends JFrame {
 
 					@Override
 					public void actionPerformed(ActionEvent e) {
-						
+						KhamBenhService KBSer = new KhamBenhService();
+						KBSer.themLichkham(txtMabenhnhan.getText(),Date.valueOf(txtNgaykham.getText()),txtYeucaukham.getText(), cbxTenbacsi.getSelectedItem().toString());
+						txtMabenhnhan.setText("");
+						txtNgaykham.setText("");
+						txtYeucaukham.setText("");
 					}
 			
 				});
+		
+		txtMabenhnhan.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				BenhNhanService BNSer = new BenhNhanService();
+				String tenbn = BNSer.layTenbenhnhantumabenhnhan(txtMabenhnhan.getText().toString());
+				txtTenbenhnhan.setText(tenbn);
+				
+			}
+			
+		});
 		
 	}
 	private void addControls() {
@@ -97,6 +119,14 @@ public class DatLichKhamUI extends JFrame {
 		pnYeucaukham.add(lblBacsikham);
 		pnYeucaukham.add(cbxTenbacsi);
 		pnCenter.add(pnYeucaukham);
+		
+		BacSiService bsSer = new BacSiService();
+		dsTenbacsi = bsSer.layDanhsachbacsi();
+		for(BacSiModel bacsi : dsTenbacsi)
+		{
+			cbxTenbacsi.addItem(bacsi.getTenbacsi());
+		}
+		
 		
 		btnDatlichkham = new JButton("Đặt lịch khám");
 		pnSouth.add(btnDatlichkham);

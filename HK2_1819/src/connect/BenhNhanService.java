@@ -5,6 +5,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 
+import com.mysql.cj.xdevapi.Result;
+
 
 
 public class BenhNhanService extends MySqlService {
@@ -27,6 +29,28 @@ public class BenhNhanService extends MySqlService {
 		{
 			ex.printStackTrace();
 		}
+
+	}
+	
+	public String layTenbenhnhantumabenhnhan( String mabenhnhan)
+	{
+		String tenbn = "";
+		try
+		{
+			String sql = "Select tenbn from benhnhan where mabn = ? ";
+			PreparedStatement pre = conn.prepareStatement(sql);
+			pre.setString(1,mabenhnhan);
+			ResultSet result =	pre.executeQuery();
+			if(result.next())
+			{
+				tenbn = result.getString("tenbn");
+			}
+		}
+		catch(Exception ex)
+		{
+			ex.printStackTrace();
+		}
+		return tenbn;
 
 	}
 	
