@@ -79,13 +79,12 @@ public class ChiTietGiaiDauUI extends JFrame {
 				
 				String tengiai = cbxTengiai.getSelectedItem().toString();
 				GiaiDauService gdser = new GiaiDauService();
-				int magiai = gdser.layMagiaidaututengiai(tengiai);
-				
-				int rowCount = dtmDoithamgia.getRowCount();
+				int magiai = gdser.layMagiaidaututengiai(tengiai); // hàm này luôn trả về magiai =0 ?
+				ChiTietGiaiDauService CTGD = new ChiTietGiaiDauService();
+				int rowCount = tblDanhsachdoi.getRowCount();
 				for(int i=0; i< rowCount;i++)
 				{
-					ChiTietGiaiDauService CTGD = new ChiTietGiaiDauService();
-					int madoi = Integer.parseInt(dtmDoithamgia.getValueAt(1,0).toString());;
+					int madoi = Integer.parseInt(tblDanhsachdoi.getValueAt(i,0).toString());;
 					CTGD.themCT_GD(magiai, madoi);
 				}
 				

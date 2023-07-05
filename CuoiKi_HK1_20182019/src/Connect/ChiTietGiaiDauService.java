@@ -7,7 +7,7 @@ public class ChiTietGiaiDauService extends MySqlService {
 	{
 		try
 		{
-			String sql = "Insert into doibong(mag,mad) values (?,?) ";
+			String sql = "Insert into ct_gd(mag,mad) values (?,?) ";
 			PreparedStatement pre = conn.prepareStatement(sql);
 			pre.setInt(1,magiai);
 			pre.setInt(2,madoi);
