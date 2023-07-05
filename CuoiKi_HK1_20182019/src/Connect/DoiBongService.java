@@ -54,4 +54,45 @@ public class DoiBongService extends MySqlService {
 		
 		return dsDB;
 	}
+	public int layMadoidaututendoi(String tendoi)
+	{
+		int kq =0;
+		try
+		{
+			String sql = "Select mad from doibong where tendoi = ? ";
+			PreparedStatement pre = conn.prepareStatement(sql);
+			pre.setString(1,tendoi);
+			ResultSet result = pre.executeQuery();
+			kq = result.getInt("mad");
+			
+		}
+		catch(Exception ex)
+		{
+			ex.printStackTrace();
+		}
+		return kq ;
+	}
+	public ArrayList<DoiBongModel> layToanbotendoibong()
+	{
+		ArrayList<DoiBongModel> dsDB = new ArrayList<>();
+		
+		
+		try
+		{
+			String sql = "Select tendoi from doibong ";
+			PreparedStatement pre = conn.prepareStatement(sql);
+			ResultSet result = pre.executeQuery();
+			while(result.next())
+			{
+				DoiBongModel DB = new DoiBongModel();
+				DB.setTendoi(result.getString(1));
+				dsDB.add(DB);
+			}
+		}
+		catch(Exception ex)
+		{
+			ex.printStackTrace();
+		}
+		return dsDB;
+	}
 }

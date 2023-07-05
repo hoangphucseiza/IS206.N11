@@ -22,5 +22,9 @@ public class DoiBongModel {
 	public void setQuocgia(String quocgia) {
 		this.quocgia = quocgia;
 	}
+	@Override
+	public String toString() {
+		return tendoi ;
+	}
 	
 }

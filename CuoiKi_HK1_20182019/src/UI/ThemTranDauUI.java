@@ -31,6 +31,7 @@ import java.util.Vector;
 import Connect.ChiTietGiaiDauService;
 import Connect.DoiBongService;
 import Connect.GiaiDauService;
+import Connect.TranDauService;
 import Model.DoiBongModel;
 import Model.GiaiDauModel;
 import javax.swing.JFrame;
@@ -39,6 +40,9 @@ public class ThemTranDauUI extends JFrame  {
 	JTextField txtNgayda, txtDiadiem, txtTiso;
 	JComboBox cbxTengiai, cbxChunha, cbxDoikhach;
 	JButton btnThem, btnHuy;
+	ArrayList<GiaiDauModel> dsGiai = null;
+	ArrayList<DoiBongModel> dsChunha = null;
+	ArrayList<DoiBongModel> dsDoikhach = null;
 	public ThemTranDauUI (String title)
 	{
 		super(title);
@@ -54,6 +58,21 @@ public class ThemTranDauUI extends JFrame  {
 				txtNgayda.setText("");
 				txtDiadiem.setText("");
 				txtTiso.setText("");
+			}
+			
+		});
+		
+		btnThem.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				TranDauService TD = new TranDauService();
+				GiaiDauService GD = new GiaiDauService();
+				DoiBongService DB = new DoiBongService();
+				int magiai = GD.layMagiaidaututengiai(cbxTengiai.getSelectedItem().toString());
+				int doinha = DB.layMadoidaututendoi(cbxChunha.getSelectedItem().toString());
+				int doikhach = DB.layMadoidaututendoi(cbxDoikhach.getSelectedItem().toString());
+				TD.themTranDau(magiai, Date.valueOf(txtNgayda.getText()), txtDiadiem.getText(), magiai, doinha, doikhach, txtTiso.getText());
 			}
 			
 		});
@@ -112,6 +131,27 @@ public class ThemTranDauUI extends JFrame  {
 		pnButton.add(btnThem);
 		pnButton.add(btnHuy);
 		pnCenter.add(pnButton);
+		
+		GiaiDauService giaiDauservice = new GiaiDauService();
+		dsGiai = giaiDauservice.layToanbotengiai();
+		for(GiaiDauModel tengiai : dsGiai)
+		{
+			cbxTengiai.addItem(tengiai);
+		}
+		
+		
+		DoiBongService doibongservice = new DoiBongService();
+		dsChunha = doibongservice.layToanbotendoibong();
+		for(DoiBongModel doibong : dsChunha)
+		{
+			cbxChunha.addItem(doibong);
+		}
+		
+		dsDoikhach = doibongservice.layToanbotendoibong();
+		for(DoiBongModel doibong : dsDoikhach)
+		{
+			cbxDoikhach.addItem(doibong);
+		}
 		
 	}
 	public void showWindow()

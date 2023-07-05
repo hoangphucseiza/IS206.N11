@@ -27,5 +27,5 @@ public class TranDauService extends MySqlService {
 		}
 
 	}
-
+	
 }
