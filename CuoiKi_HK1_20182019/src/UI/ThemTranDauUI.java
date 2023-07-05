@@ -72,7 +72,7 @@ public class ThemTranDauUI extends JFrame  {
 				int magiai = GD.layMagiaidaututengiai(cbxTengiai.getSelectedItem().toString());
 				int doinha = DB.layMadoidaututendoi(cbxChunha.getSelectedItem().toString());
 				int doikhach = DB.layMadoidaututendoi(cbxDoikhach.getSelectedItem().toString());
-				TD.themTranDau(magiai, Date.valueOf(txtNgayda.getText()), txtDiadiem.getText(), magiai, doinha, doikhach, txtTiso.getText());
+				TD.themTranDau(Date.valueOf(txtNgayda.getText()), txtDiadiem.getText(), magiai, doinha, doikhach, txtTiso.getText());
 			}
 			
 		});
