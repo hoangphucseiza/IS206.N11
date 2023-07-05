@@ -63,7 +63,11 @@ public class DoiBongService extends MySqlService {
 			PreparedStatement pre = conn.prepareStatement(sql);
 			pre.setString(1,tendoi);
 			ResultSet result = pre.executeQuery();
-			kq = result.getInt("mad");
+			while(result.next())
+			{
+				kq = result.getInt("mad");
+			}
+			
 			
 		}
 		catch(Exception ex)

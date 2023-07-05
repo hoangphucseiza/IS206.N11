@@ -59,7 +59,11 @@ public class GiaiDauService extends MySqlService {
 			PreparedStatement pre = conn.prepareStatement(sql);
 			pre.setString(1,tengiai);
 			ResultSet result = pre.executeQuery();
-			kq = result.getInt("mag");
+			while(result.next())
+			{
+				kq = result.getInt("mag");
+			}
+			
 			
 		}
 		catch(Exception ex)

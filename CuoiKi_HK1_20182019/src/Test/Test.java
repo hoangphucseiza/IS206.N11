@@ -10,9 +10,9 @@ public class Test {
 		TD.showWindow();
 		
 		ThemGiaiDauUI TGD = new ThemGiaiDauUI("Thêm giải đấu");
-		TGD.showWindow();
+		TGD.showWindow();*/
 
-		ChiTietGiaiDauUI CTGD = new ChiTietGiaiDauUI("Chi tiết giải đấu");
+	/*	ChiTietGiaiDauUI CTGD = new ChiTietGiaiDauUI("Chi tiết giải đấu");
 		CTGD.showWindow();*/
 		
 		ThemTranDauUI TTD = new ThemTranDauUI("Thêm trận dấu");

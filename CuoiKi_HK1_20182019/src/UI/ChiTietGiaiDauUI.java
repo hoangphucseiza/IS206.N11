@@ -79,7 +79,7 @@ public class ChiTietGiaiDauUI extends JFrame {
 				
 				String tengiai = cbxTengiai.getSelectedItem().toString();
 				GiaiDauService gdser = new GiaiDauService();
-				int magiai = gdser.layMagiaidaututengiai(tengiai); // hàm này luôn trả về magiai =0 ?
+				int magiai = gdser.layMagiaidaututengiai(tengiai); 
 				ChiTietGiaiDauService CTGD = new ChiTietGiaiDauService();
 				int rowCount = tblDanhsachdoi.getRowCount();
 				for(int i=0; i< rowCount;i++)
