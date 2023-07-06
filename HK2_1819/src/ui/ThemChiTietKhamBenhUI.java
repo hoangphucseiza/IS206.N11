@@ -75,20 +75,29 @@ public class ThemChiTietKhamBenhUI extends JFrame {
 				dsBenhnhan = bnSer.layTenbenhnhantungaykhamvatenbacsi(Date.valueOf(txtNgaykham.getText()), cbxTenbacsi.getSelectedItem().toString());
 				for(BenhNhanModel benhnhan :dsBenhnhan)
 				{
-					cbxTenbenhnhan.addItem(benhnhan.getTenbenhnhan()); // Lỗi không hiện ra tên
+					cbxTenbenhnhan.addItem(benhnhan.getTenbenhnhan()); 
 				}
 				
 			}});
 		
 		
-		cbxTenbenhnhan.addActionListener(new ActionListener() { // Chưa sửa lệnh khi chọn vô cbx bênh nhân thì sẽ hiện lên yêu cầu khám
+		cbxTenbenhnhan.addActionListener(new ActionListener() { 
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				KhamBenhService KBSer = new KhamBenhService();
+				txtYeucaukham.setText(KBSer.layYeucaukhamtutenbenhnhan(cbxTenbenhnhan.getSelectedItem().toString()));
+			
+			}});
+	/*	btnThem.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				
 				
-			}});
-		
+			}
+			
+		});  */
 		
 		tblDanhsachdichvu.addMouseListener(new MouseAdapter() {
 			@Override
