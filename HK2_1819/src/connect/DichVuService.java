@@ -29,4 +29,43 @@ public class DichVuService extends MySqlService {
 		
 		return dsDv;
 	}
+
+	public int layDongiatumadichvu(String madichvu) {
+		int dongia =0;
+		try {
+			String sql = "Select dongia from dichvu where madv = ?";
+			PreparedStatement pre = conn.prepareStatement(sql);
+			pre.setString(1,madichvu);
+			ResultSet result = pre.executeQuery();
+			while(result.next())
+			{
+				dongia = result.getInt("dongia");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		
+		return dongia;
+	}
+
+	public String laymadichvututendichvu(String tendichvu) {
+		
+		String madichvu="";
+		try {
+			String sql = "Select madv from dichvu where tendichvu = ?";
+			PreparedStatement pre = conn.prepareStatement(sql);
+			pre.setString(1,tendichvu);
+			ResultSet result = pre.executeQuery();
+			while(result.next())
+			{
+				madichvu = result.getString("madv");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		
+		return madichvu;
+	}
 }

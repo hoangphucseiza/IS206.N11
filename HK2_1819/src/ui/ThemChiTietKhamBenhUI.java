@@ -21,6 +21,7 @@ import connect.BacSiService;
 import connect.BenhNhanService;
 import connect.DichVuService;
 import connect.KhamBenhService;
+import connect.ThuPhiService;
 import model.BacSiModel;
 import model.BenhNhanModel;
 import model.DichVuModel;
@@ -89,15 +90,30 @@ public class ThemChiTietKhamBenhUI extends JFrame {
 				txtYeucaukham.setText(KBSer.layYeucaukhamtutenbenhnhan(cbxTenbenhnhan.getSelectedItem().toString()));
 			
 			}});
-	/*	btnThem.addActionListener(new ActionListener() {
+		btnThem.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				KhamBenhService KBSer = new KhamBenhService();
+				String makb = KBSer.layMakhambenhtutenbacsivatenbenhnhan(cbxTenbacsi.getSelectedItem().toString(),cbxTenbenhnhan.getSelectedObjects().toString());
+				KBSer.capNhatchtietkhambenh(makb, txtKetluan.getText());
+				
+				int rowCount = tblDanhsachdichvubacsichon.getRowCount();
+				for(int i =0; i< rowCount;i++)
+				{
+					ThuPhiService TPSer = new ThuPhiService();
+					DichVuService DVSer = new DichVuService();
+					String tendichvu = tblDanhsachdichvubacsichon.getValueAt(i,0 ).toString();
+					int soluong = Integer.parseInt(tblDanhsachdichvubacsichon.getValueAt(i,1).toString());
+					String madv = DVSer.laymadichvututendichvu(tendichvu);
+					TPSer.themPhieuthuphi(makb, madv, soluong);
+				}
+				
 				
 				
 			}
 			
-		});  */
+		}); 
 		
 		tblDanhsachdichvu.addMouseListener(new MouseAdapter() {
 			@Override

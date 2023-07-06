@@ -70,5 +70,45 @@ public class KhamBenhService extends MySqlService {
 		return yeucaukham;
 
 	}
+	public  String layMakhambenhtutenbacsivatenbenhnhan( String tenbacsi,String tenbenhnhan)
+	{	
+		String makhambenh = "";
+		try
+		{
+			String sql = "Select makb from benhnhan, khambenh, bacsi where benhnhan.mabn = khambenh.mabn and khambenh.mabs = bacsi.mabs and tenbacsi =? and tenbenhnhan =? ";
+			PreparedStatement pre = conn.prepareStatement(sql);
+			pre.setString(1,tenbacsi);
+			pre.setString(2,tenbenhnhan);
+			ResultSet result = pre.executeQuery();
+			while(result.next())
+			{
+				makhambenh = result.getString("makb");
+			}
+		}
+		catch(Exception ex)
+		{
+			ex.printStackTrace();
+		}
+		return makhambenh;
+
+	}
+	public  void capNhatchtietkhambenh( String makhambenh, String ketluan)
+	{	
+		String yeucaukham = "";
+		try
+		{
+			String sql = "Update khambenh set ketluan= ? where makb= ? ";
+			PreparedStatement pre = conn.prepareStatement(sql);
+			pre.setString(1,ketluan);
+			pre.setString(1,makhambenh);
+			pre.executeUpdate();
+			
+		}
+		catch(Exception ex)
+		{
+			ex.printStackTrace();
+		}
+
+	}
 	
 }
