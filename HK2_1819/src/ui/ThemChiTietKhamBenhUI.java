@@ -73,7 +73,8 @@ public class ThemChiTietKhamBenhUI extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				BenhNhanService bnSer = new BenhNhanService();
-				dsBenhnhan = bnSer.layTenbenhnhantungaykhamvatenbacsi(Date.valueOf(txtNgaykham.getText()), cbxTenbacsi.getSelectedItem().toString());
+				dsBenhnhan = bnSer.layTenbenhnhantungaykhamvatenbacsi(Date.valueOf(txtNgaykham.getText()), 
+						cbxTenbacsi.getSelectedItem().toString());
 				for(BenhNhanModel benhnhan :dsBenhnhan)
 				{
 					cbxTenbenhnhan.addItem(benhnhan.getTenbenhnhan()); 
@@ -95,7 +96,8 @@ public class ThemChiTietKhamBenhUI extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				KhamBenhService KBSer = new KhamBenhService();
-				String makb = KBSer.layMakhambenhtutenbacsivatenbenhnhan(cbxTenbacsi.getSelectedItem().toString(),cbxTenbenhnhan.getSelectedObjects().toString());
+				String makb = KBSer.layMakhambenhtutenbacsivatenbenhnhan(cbxTenbacsi.getSelectedItem().toString(),
+						cbxTenbenhnhan.getSelectedObjects().toString());
 				KBSer.capNhatchtietkhambenh(makb, txtKetluan.getText());
 				
 				int rowCount = tblDanhsachdichvubacsichon.getRowCount();

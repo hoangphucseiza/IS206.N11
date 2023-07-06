@@ -61,7 +61,8 @@ public class BenhNhanService extends MySqlService {
 		ArrayList<BenhNhanModel> dsBn = new ArrayList<>();
 		try
 		{
-			String sql = "Select tenbn from benhnhan,khambenh,bacsi where benhnhan.mabn = khambenh.mabn and bacsi.mabs = khambenh.mabs and ngaykham =? and tenbs =? ";
+			String sql = "Select tenbn from benhnhan,khambenh,bacsi where benhnhan.mabn = khambenh.mabn and bacsi.mabs = khambenh.mabs "
+					+ "and ngaykham =? and tenbs =? ";
 			PreparedStatement pre = conn.prepareStatement(sql);
 			pre.setDate(1,ngaykham);
 			pre.setString(2,tenbacsi);

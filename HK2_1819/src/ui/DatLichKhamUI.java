@@ -35,7 +35,7 @@ import java.util.Vector;
 
 public class DatLichKhamUI extends JFrame {
 	JTextField txtMabenhnhan, txtTenbenhnhan, txtNgaykham, txtYeucaukham;
-	JComboBox<String> cbxTenbacsi;
+	JComboBox cbxTenbacsi;
 	JButton btnDatlichkham;
 	ArrayList<BacSiModel> dsTenbacsi;
 	public DatLichKhamUI(String title)
@@ -51,7 +51,8 @@ public class DatLichKhamUI extends JFrame {
 					@Override
 					public void actionPerformed(ActionEvent e) {
 						KhamBenhService KBSer = new KhamBenhService();
-						KBSer.themLichkham(txtMabenhnhan.getText(),Date.valueOf(txtNgaykham.getText()),txtYeucaukham.getText(), cbxTenbacsi.getSelectedItem().toString());
+						KBSer.themLichkham(txtMabenhnhan.getText(),Date.valueOf(txtNgaykham.getText()),txtYeucaukham.getText(),
+						cbxTenbacsi.getSelectedItem().toString());
 						txtMabenhnhan.setText("");
 						txtNgaykham.setText("");
 						txtYeucaukham.setText("");

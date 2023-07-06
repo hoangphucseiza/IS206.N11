@@ -45,7 +45,8 @@ public class ThemBenhNhanUI extends JFrame {
 					@Override
 					public void actionPerformed(ActionEvent e) {
 						BenhNhanService BNSer = new BenhNhanService();
-						BNSer.themBenhnhan(txtMabenhnhan.getText(),txtTenbenhnhan.getText(),Date.valueOf(txtNgaysinh.getText()),txtDiachi.getText() , txtDienthoai.getText(), cbxGioitinh.getSelectedItem().toString());
+						BNSer.themBenhnhan(txtMabenhnhan.getText(),txtTenbenhnhan.getText(),Date.valueOf(txtNgaysinh.getText()),txtDiachi.getText() ,
+								txtDienthoai.getText(), cbxGioitinh.getSelectedItem().toString());
 					}
 			
 				});
