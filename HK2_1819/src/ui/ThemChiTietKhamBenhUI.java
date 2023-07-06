@@ -16,6 +16,15 @@ import javax.swing.JPanel;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
+
+import connect.BacSiService;
+import connect.BenhNhanService;
+import connect.DichVuService;
+import connect.KhamBenhService;
+import model.BacSiModel;
+import model.BenhNhanModel;
+import model.DichVuModel;
+
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import java.awt.BorderLayout;
@@ -35,16 +44,68 @@ public class ThemChiTietKhamBenhUI extends JFrame {
 	DefaultTableModel dtmDanhsachdichvu, dtmDanhsachdichvubacsichon;
 	JTable tblDanhsachdichvu, tblDanhsachdichvubacsichon;
 	JButton  btnThem;
-	
+	ArrayList<BacSiModel> dsBacsi = new ArrayList<>();
+	ArrayList<BenhNhanModel> dsBenhnhan = new ArrayList<>();
+	ArrayList<DichVuModel> dsDichvu = new ArrayList<>();
 	public ThemChiTietKhamBenhUI(String title)
 	{
 		super(title);
 		addControls();
 		addEvents();
+		hienThidanhsachdichvu();
 		
 	}
+	private void hienThidanhsachdichvu() {
+		DichVuService DVSer= new DichVuService();
+		dsDichvu = DVSer.layDanhsachDichvu();
+		dtmDanhsachdichvu.setRowCount(0);
+		for(DichVuModel dichvu : dsDichvu)
+		{
+			Vector<Object> vec = new Vector<Object>();
+			vec.add(dichvu.getTendichvu());
+			dtmDanhsachdichvu.addRow(vec);;
+		}
+	}
 	private void addEvents() {
-		// TODO Auto-generated method stub
+		txtNgaykham.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				BenhNhanService bnSer = new BenhNhanService();
+				dsBenhnhan = bnSer.layTenbenhnhantungaykhamvatenbacsi(Date.valueOf(txtNgaykham.getText()), cbxTenbacsi.getSelectedItem().toString());
+				for(BenhNhanModel benhnhan :dsBenhnhan)
+				{
+					cbxTenbenhnhan.addItem(benhnhan.getTenbenhnhan()); // Lỗi không hiện ra tên
+				}
+				
+			}});
+		
+		
+		cbxTenbenhnhan.addActionListener(new ActionListener() { // Chưa sửa lệnh khi chọn vô cbx bênh nhân thì sẽ hiện lên yêu cầu khám
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				
+				
+			}});
+		
+		
+		tblDanhsachdichvu.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e)
+			{
+				int row = tblDanhsachdichvu.getSelectedRow();
+				String tendichvu = tblDanhsachdichvu.getValueAt(row, 0).toString();
+				Vector<Object> vec = new Vector<Object>();
+				vec.add(tendichvu);
+				vec.add(1);
+				dtmDanhsachdichvubacsichon.addRow(vec);
+			}
+			
+			
+		});
+		
+		
 		
 	}
 	private void addControls() {
@@ -64,6 +125,13 @@ public class ThemChiTietKhamBenhUI extends JFrame {
 		JLabel lblNgaykham = new JLabel("Ngày khám");
 		txtNgaykham = new JTextField(25);
 		cbxTenbacsi = new JComboBox();
+		BacSiService BSSer = new BacSiService();
+		dsBacsi = BSSer.layDanhsachbacsi();
+		for(BacSiModel bacsi :dsBacsi)
+		{
+			cbxTenbacsi.addItem(bacsi.getTenbacsi());
+		}
+			
 		pnDong1.add(lblTenbacsi);
 		pnDong1.add(cbxTenbacsi);
 		pnDong1.add(lblNgaykham);
@@ -115,12 +183,11 @@ public class ThemChiTietKhamBenhUI extends JFrame {
 		pnPhai.add(lblDanhsachdichvubacsichon);
 		pnPhai.add(scDanhsachdichvubacsichon);
 		
-		
-		
-		
-		
 		btnThem = new JButton("Thêm");
 		pnSouth.add(btnThem);
+		
+		
+		
 	}
 	public void showWindow()
 	{

@@ -7,6 +7,8 @@ import java.util.ArrayList;
 
 import com.mysql.cj.xdevapi.Result;
 
+import model.BenhNhanModel;
+
 
 
 public class BenhNhanService extends MySqlService {
@@ -51,6 +53,31 @@ public class BenhNhanService extends MySqlService {
 			ex.printStackTrace();
 		}
 		return tenbn;
+
+	}
+	
+	public ArrayList<BenhNhanModel> layTenbenhnhantungaykhamvatenbacsi( Date ngaykham, String tenbacsi)
+	{
+		ArrayList<BenhNhanModel> dsBn = new ArrayList<>();
+		try
+		{
+			String sql = "Select tenbn from benhnhan,khambenh,bacsi where benhnhan.mabn = khambenh.mabn and bacsi.mabs = khambenh.mabs and ngaykham =? and tenbs =? ";
+			PreparedStatement pre = conn.prepareStatement(sql);
+			pre.setDate(1,ngaykham);
+			pre.setString(2,tenbacsi);
+			ResultSet result =	pre.executeQuery();
+			if(result.next())
+			{
+				BenhNhanModel bn= new BenhNhanModel();
+				bn.setTenbenhnhan(result.getString("tenbn"));
+				dsBn.add(bn);
+			}
+		}
+		catch(Exception ex)
+		{
+			ex.printStackTrace();
+		}
+		return dsBn;
 
 	}
 	

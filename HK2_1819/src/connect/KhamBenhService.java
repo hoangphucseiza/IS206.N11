@@ -3,6 +3,8 @@ package connect;
 import java.security.SecureRandom;
 import java.sql.Date;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.util.Vector;
 
 
 public class KhamBenhService extends MySqlService {
@@ -44,6 +46,28 @@ public class KhamBenhService extends MySqlService {
 		{
 			ex.printStackTrace();
 		}
+
+	}
+	
+	public  String layYeucaukhamtutenbenhnhan( String tenbenhnhan)
+	{	
+		String yeucaukham = "";
+		try
+		{
+			String sql = "Select yeucaukham from benhnhan, khambenh where benhnhan.mabn = khambenh.mabn and tenbenhnhan =? ";
+			PreparedStatement pre = conn.prepareStatement(sql);
+			pre.setString(1,tenbenhnhan);
+			ResultSet result = pre.executeQuery();
+			while(result.next())
+			{
+				yeucaukham = result.getString("yeucaukham");
+			}
+		}
+		catch(Exception ex)
+		{
+			ex.printStackTrace();
+		}
+		return yeucaukham;
 
 	}
 	
